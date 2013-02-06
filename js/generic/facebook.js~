@@ -1,45 +1,130 @@
-function onPubFacebookBtn(){ 
-        /* On Facebook Login */
-        var my_client_id  = "115245771971417",
-        my_redirect_uri   = "http://www.facebook.com/connect/login_success.html",
-        my_type           = "user_agent",
-        my_display        = "touch"
+/* MIT licensed */
+// (c) 2010 Jesse MacFadyen, Nitobi
+// (c) 2011 Sergey Grebnov
+// Contributions, advice from : 
+// http://www.pushittolive.com/post/1239874936/facebook-login-on-iphone-phonegap
 
-        var authorize_url  = "https://graph.facebook.com/oauth/authorize?";
-        authorize_url += "client_id="+my_client_id;
-        authorize_url += "&redirect_uri="+my_redirect_uri;
-        authorize_url += "&display="+my_display;
-        authorize_url += "&scope=publish_stream"
+/**
+* FBConnect implements user authentication logic and session information store
+*/
 
-        client_browser = ChildBrowser.install(); 
-        client_browser.onLocationChange = function(loc){ facebookLocChanged(loc); };
-        if(client_browser != null) {  window.plugins.childBrowser.showWebPage(authorize_url); }
+function FBConnect(client_id, redirect_uri, display) {
+
+    this.client_id = client_id;
+    this.redirect_uri = redirect_uri;
+    this.display = display;
+
+    this.resetSession();
+
+    if (window.plugins.childBrowser == null) {
+        ChildBrowser.install();
     }
 
-    function facebookLocChanged(loc){
-       /* Here we check if the url is the login success */
-       if (/login_success/.test(loc)) { 
-           var fbCode = loc.match(/code=(.*)$/)[1]
-           /* I complete the login server side, but you could use the facebook js sdk */
-           $.ajax({
-              url: 'http://localhost:8000/api/login/facebook/', 
-              dataType: 'jsonp',
-              type: 'GET',
-              data: {code: fbCode},
-              success: function(data, textStatus) {
-                  if (data['success']) {
-                    localStorage.facebook_token = data['token']; /* store the token */
-                    client_browser.close();
-                    jQT.goTo('#home');
-                  } else {
-                      client_browser.close();
-                  }
-              },
-              error: function(XMLHttpRequest, textStatus, errorThrown) {
-                  alert(textStatus);
-                  jQT.goTo('#home');
-              }
-           });
-       }
+}
+
+/**
+* User login
+*/
+FBConnect.prototype.connect = function (scope) {
+
+    var authorize_url = "https://graph.facebook.com/oauth/authorize?";
+    authorize_url += "client_id=" + this.client_id;
+    authorize_url += "&redirect_uri=" + this.redirect_uri;
+    authorize_url += "&display=" + (this.display ? this.display : "touch");
+    authorize_url += "&type=user_agent";
+
+    // extended permissions http://developers.facebook.com/docs/reference/api/permissions/
+    if (scope) {
+        authorize_url += "&scope=" + scope;
     }
+
+    window.plugins.childBrowser.showWebPage(authorize_url);
+    var self = this;
+    window.plugins.childBrowser.onLocationChange = function (loc) { self.onLoginLocationChange(loc); };
+}
+
+FBConnect.prototype.onLoginLocationChange = function (newLoc) {
+    if (newLoc.indexOf(this.redirect_uri) == 0) {
+        var result = unescape(newLoc).split("#")[1];
+        result = unescape(result);
+
+        // TODO: Error Check
+        this.session.access_token = result.split("&")[0].split("=")[1];
+        var expiresIn = parseInt(result.split("&")[1].split("=")[1]);
+        this.session.expires = new Date().valueOf() + expiresIn * 1000;
+        this.status = "connected";
+
+        window.plugins.childBrowser.close();
+        this.onConnect(this);
+
+    }
+}
+
+/**
+* User logout
+*/
+FBConnect.prototype.logout = function () {
+    var authorize_url = "https://www.facebook.com/logout.php?";
+    authorize_url += "&next=" + this.redirect_uri;
+    authorize_url += "&access_token=" + this.session.access_token;
+    console.log("logout url: " + authorize_url);
+    window.plugins.childBrowser.showWebPage(authorize_url);
+    var self = this;
+    window.plugins.childBrowser.onLocationChange = function (loc) {
+        console.log("onLogout");
+        window.plugins.childBrowser.close();
+        self.resetSession();
+        self.status = "notConnected";
+        self.onDisconnect(this);
+    };
+}
+
+/**
+* Example method - returns your friends
+*/
+FBConnect.prototype.getFriends = function () {
+    var url = "https://graph.facebook.com/me/friends?access_token=" + this.session.access_token;
+    var req = new XMLHttpRequest();
+
+    req.open("get", url, true);
+    req.send(null);
+    req.onerror = function () { alert("Error"); };
+    return req;
+}
+
+// Note: this plugin does NOT install itself, call this method some time after deviceready to install it
+// it will be returned, and also available globally from window.plugins.fbConnect
+FBConnect.install = function (client_id, redirect_uri, display) {
+    if (!window.plugins) {
+        window.plugins = {};
+    }
+    window.plugins.fbConnect = new FBConnect(client_id, redirect_uri, display);
+
+    return window.plugins.fbConnect;
+}
+
+/**
+* Session management functionality
+*/
+FBConnect.prototype.resetSession = function () {
+    this.status = "unknown";
+    this.session = {};
+    this.session.access_token = null;
+    this.session.expires = 0;
+    this.session.secret = null;
+    this.session.session_key = null;
+    this.session.sig = null;
+    this.session.uid = null;
+}
+
+FBConnect.prototype.restoreLastSession = function () {
+    var session = JSON.parse(localStorage.getItem('pg_fb_session'));
+    if (session) {
+        this.session = session;
+    }
+}
+
+FBConnect.prototype.saveSession = function () {
+    localStorage.setItem('pg_fb_session', JSON.stringify(this.session));
+}
 
