@@ -20,5 +20,6 @@
     <feature name="http://api.phonegap.com/1.0/device"/>
     
     <preference name="fullscreen" value="true" />
+    <preference name="orientation" value="portrait" />
 
 </widget>
