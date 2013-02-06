@@ -26,7 +26,8 @@
         <div id="fb-root"></div>
         <!-- cordova -->
 			<script src="phonegap.js"></script>
-
+			<script src="cdv-plugin-fb-connect.js"></script>
+			<script src="facebook_js_sdk.js"></script>
     
         <div id="log"></div>
 </body>
