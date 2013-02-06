@@ -1,6 +1,6 @@
 function onPubFacebookBtn(){ 
         /* On Facebook Login */
-        var my_client_id  = "REPLACE_WITH_YOUR_FACEBOOK_APP_ID",
+        var my_client_id  = "115245771971417",
         my_redirect_uri   = "http://www.facebook.com/connect/login_success.html",
         my_type           = "user_agent",
         my_display        = "touch"
