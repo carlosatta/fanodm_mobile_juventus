@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
     <widget xmlns = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/2.0"
-        id = "me.rubrik.test"
+        id = "fandom_mobile_juventus.wasabipeas.it"
         versionCode="10"
         version = "1.0.0">
 
@@ -17,6 +17,8 @@
         Carlo Satta
     </author>
     
-    <feature name="http://api.phonegap.com/1.0/camera"/>
+    <feature name="http://api.phonegap.com/1.0/device"/>
+    
+    <preference name="fullscreen" value="true" />
 
 </widget>
