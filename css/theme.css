@@ -39,5 +39,32 @@
 	width: 16%;
 	height: 100%;
 	float: left;
+}
+
+.ui-header .header-center .user-avatar{
+	margin: 0 auto;
+	height: 100%;
+	width: 67px;
 	background: url("../images/header_center.png") no-repeat transparent;
+}
+
+#objects-menu {
+	width: 100%;
+	height: 100px;
+	padding: 0 10%;
+}
+
+#objects-menu ul{
+	height: 100px;
+	width: 80%;
+	background-color: #ffde00;
+	border: 2px solid white;
+	padding: 0;
+	border-radius: 10px;
+}
+
+#objects-menu li{
+	float: left;
+	height: 100%;
+	width: 20%;
 }

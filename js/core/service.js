@@ -1,15 +1,24 @@
-/* Espone tutti i metodi delle chiamate al webservice */
+/* Espone tutti i metodi delle chiamate al webservice 
+ * 
+ * Tutti i metodi che hanno la variabile go_on vanno 
+ * richiamati normalmente, senza passare quel paramentro.
+ * Richiamano quindi get_json che, quando finisce il suo 
+ * lavoro richiamo il metodo che lo ha interpellato, 
+ * specificando go_on a true. In questo modo il metodo sa 
+ * che è stato richiamato da get_json e prosegue nel salvare i dati.
+ * */
 
 var Service = {
 	output : false,
+	user_profile : [],
 	user_items : [],
 	all_items : [],
-	user_profile : [],
 	user_coins : [],
 	news : [],
 	chat_messages : [],
 
-	get_json : function(data, option) {
+	/* Si occupa di fare tutte le chiamate json */
+	get_json : function(url_suffix, option) {
 		var url = Settings.service_url;
 		var action = '';
 		var preaction = '';
@@ -23,72 +32,70 @@ var Service = {
 		}
 		if (preaction)
 			eval(preaction);
-		if (!data)
+		if (!url_suffix)
 			return false;
 
-		$.getJSON(url + data, {}, function(data) {
-			$('#box').html('Fatto!');
+		$.getJSON(url + url_suffix, {}, function(data) {
 			Service.save_data(data);
-			console.log('azione: ' + action);
+			console.log('action: ' + action);
 			if (action)
 				eval(action);
 		}).error(function(data) {
-			$('#box').html('Errore!');
 			Service.save_data(data);
-			console.log('azione: ' + action);
+			console.log('action: ' + action);
 			if (action)
 				eval(action);
 		});
 	},
 
+	/*
+	 * Salva i dati restituiti da get_json in una variabile temporanea che verrà
+	 * poi processata dai metodi che hanno richiamato get_json
+	 */
 	save_data : function(data) {
 		Service.output = data;
 		console.log(data);
 	},
 
-	login : function(token, expiry, go_on) {
+	/* Esegue il login sul server */
+	login : function(token, expiry, callback, go_on) {
 		if (!go_on || go_on === undefined) {
 			if (!token || !expiry)
 				return false;
 
-			var data = 'login?token=' + token + '&expiry=' + expiry;
+			var url_suffix = 'login?token=' + token + '&expiry=' + expiry;
 			Service.user_profile = [];
 			Service.output = false;
-			Service.get_json(data, {
-				'action' : 'Service.login(false, false, true);'
+			Service.get_json(url_suffix, {
+				'action' : 'Service.login(false, false, "' + callback
+						+ '", true);'
 			});
 		} else {
-			Service.user_profile = Service.output;
+			Service.user_profile = Service.output.value;
 			Service.output = false;
-			Splashscreen.validate_login();
+			if (callback)
+				eval(callback);
 		}
 	},
 
-	get_objects : function(go_on, callback) {
-		console.log('get_objects: go_on=' + go_on);
-		console.log('get_objects: callback=' + callback);
+	/* Recupera la lista degli oggetti disponibili (cappellino, ecc.) */
+	get_objects : function(callback, go_on) {
 		if (!go_on || go_on === undefined) {
-			var data = 'get_objects';
+			var url_suffix = 'get_objects';
 			Service.all_items = [];
 			Service.output = false;
-			if (callback)
-				Service.get_json(data, {
-					'action' : 'Service.get_objects(true, \'' + callback
-							+ '\');'
-				});
-			else
-				Service.get_json(data, {
-					'action' : 'Service.get_objects(true);'
-				});
+			Service.get_json(url_suffix, {
+				'action' : 'Service.get_objects(\'' + callback + '\', true);'
+			});
 		} else {
-			Service.all_items = Service.output;
+			Service.all_items = Service.output.value;
 			Service.output = false;
 			if (callback)
 				eval(callback.replace(/"/g, "'"));
 		}
 	},
 
-	get_user_items : function(user_id, go_on, callback) {
+	get_user_items : function(user_id, callback, go_on) {
 		console.log('get_user_items: user_id=' + user_id);
 		console.log('get_user_items: go_on=' + go_on);
 		console.log('get_user_items: callback=' + callback);
@@ -96,16 +103,16 @@ var Service = {
 			if (!user_id)
 				return false;
 
-			var data = 'get_user_items?userid=' + user_id;
+			var url_suffix = 'get_user_items?userid=' + user_id;
 			Service.user_items = [];
 			Service.output = false;
 			if (callback)
-				Service.get_json(data, {
+				Service.get_json(url_suffix, {
 					'action' : 'Service.get_user_items(false, true, \''
 							+ callback + '\');'
 				});
 			else
-				Service.get_json(data, {
+				Service.get_json(url_suffix, {
 					'action' : 'Service.get_user_items(false, true);'
 				});
 		} else {
@@ -121,25 +128,28 @@ var Service = {
 		if (!user_id)
 			return false;
 
-		var data = '?userid=' + user_id;
+		var url_suffix = '?userid=' + user_id;
 		Service.output = false;
-		Service.get_json(data);
+		Service.get_json(url_suffix);
 	},
 
 	get_user_coins : function(user_id, callback, go_on) {
 		if (!go_on) {
-			if (!user_id) return false;
+			if (!user_id)
+				return false;
 
-			var data = 'get_coins?userid=' + user_id;
+			var url_suffix = 'get_coins?userid=' + user_id;
 			Service.user_coins = [];
 			Service.output = false;
-			Service.get_json(data, {
-			    'action' : 'Service.get_user_coins(false, "' + callback +'", true);'
+			Service.get_json(url_suffix, {
+				'action' : 'Service.get_user_coins(false, "' + callback
+						+ '", true);'
 			});
 		} else {
 			Service.user_coins = Service.output.value.virtual_coins;
 			Service.output = false;
-			if(callback) eval(callback);
+			if (callback)
+				eval(callback);
 		}
 	},
 
@@ -156,9 +166,9 @@ var Service = {
 		if (balance < coins)
 			return false;
 
-		var data = 'set_coins?userid=' + user_id + '&coins=' + coins
+		var url_suffix = 'set_coins?userid=' + user_id + '&coins=' + coins
 				+ '&add=true';
-		var response = Service.requestAjax(data);
+		var response = Service.requestAjax(url_suffix);
 		return response;
 	},
 
@@ -171,10 +181,10 @@ var Service = {
 
 	news_url : function(go_on) {
 		if (!go_on) {
-			var data = 'news_url';
+			var url_suffix = 'news_url';
 			Service.news = [];
 			Service.output = false;
-			Service.get_json(data, {
+			Service.get_json(url_suffix, {
 				'action' : 'Service.news_url(true);'
 			});
 		} else {
@@ -185,10 +195,10 @@ var Service = {
 
 	get_chat_messages : function(go_on) {
 		if (!go_on) {
-			var data = 'chat_updates';
+			var url_suffix = 'chat_updates';
 			Service.chat_messages = [];
 			Service.output = false;
-			Service.get_json(data, {
+			Service.get_json(url_suffix, {
 				'action' : 'Service.get_chat_messages(true);'
 			});
 		} else {
