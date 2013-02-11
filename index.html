@@ -23,6 +23,7 @@
 <script src="js/core/json.js"></script>
 <script src="js/core/service.js"></script>
 <script src="js/splashscreen.js"></script>
+<script src="js/dashboard.js"></script>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -47,9 +48,14 @@
 	<div data-role="page" data-theme="f" id="dashboard"
 		style="background: url('images/background.jpg') no-repeat">
 		<div data-role="header">
-			<div class="header-left"> <span id="username">username</span></div>
+			<div class="header-left"> <span id="username"></span></div>
 			<div class="header-center"></div>
-			<div class="header-right"></div>
+			<div class="header-right">
+				<span id="fantacoins-label">Fantacoins</span>
+				<span id="fantacoins-number"></span>
+				<img class="fantacoins-icon" alt="fantacoins" src="images/fantacoins.png">
+				<a id="add-fantacoins" href="#"></a>
+			</div>
 		</div>
 		<div data-role="content" style="padding: 40px">
 			<ul id="menu_dashboard" data-role="listview" data-divider-theme="b"

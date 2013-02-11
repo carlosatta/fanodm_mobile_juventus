@@ -13,6 +13,7 @@ var Splashscreen = {
 		        transition: "slide",
 		        changeHash: false
 		    }); 
+			Dashboard.display_user_data();
 		}else{
 			alert('C\'è stato un errore durante il login, riprovare.');
 		}

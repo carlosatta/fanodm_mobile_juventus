@@ -26,7 +26,7 @@
 	background: url("../images/header.png") repeat-x;
 	border: none;
 	margin: 0 20px;
-	height: 40px;
+	height: 80px;
 }
 
 .ui-header .header-left, .ui-header .header-right {

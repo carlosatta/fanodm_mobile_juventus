@@ -126,34 +126,30 @@ var Service = {
 		Service.get_json(data);
 	},
 
-	get_user_coins : function(user_id, go_on) {
+	get_user_coins : function(user_id, callback, go_on) {
 		if (!go_on) {
-			// TEST
-			if (!user_id)
-				user_id = '51092d33f03fa1396b991dbb';
-			//
+			if (!user_id) return false;
 
 			var data = 'get_coins?userid=' + user_id;
 			Service.user_coins = [];
 			Service.output = false;
 			Service.get_json(data, {
-				'action' : 'Service.get_user_coins(false, true);'
+			    'action' : 'Service.get_user_coins(false, "' + callback +'", true);'
 			});
 		} else {
-			Service.user_coins = Service.output;
+			Service.user_coins = Service.output.value.virtual_coins;
 			Service.output = false;
+			if(callback) eval(callback);
 		}
 	},
 
 	set_user_coins : function(user_id, coins) {
-		// TEST
 		if (!user_id)
 			return false;
 		if (parseFloat(coins) && parseFloat(coins) != 'NaN')
 			coins = parseFloat(coins);
 		else
 			return false;
-		//
 
 		var get_coins = Service.get_user_coins(user_id);
 		var balance = get_coins['value']['virtual_coins'];
