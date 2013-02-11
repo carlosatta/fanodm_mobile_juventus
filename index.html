@@ -18,16 +18,18 @@
 
 <!-- cordova -->
 <script src="phonegap.js"></script>
-<script src="js/settings.js"></script>
-<script src="js/utility.js"></script>
-<script src="js/json.js"></script>
-<script src="js/service.js"></script>
+<script src="js/core/settings.js"></script>
+<script src="js/core/utility.js"></script>
+<script src="js/core/json.js"></script>
+<script src="js/core/service.js"></script>
+<script src="js/splashscreen.js"></script>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script
 	src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 <script src="js/generic/app.js"></script>
+<link rel="stylesheet" href="css/theme.css" />
 
 </head>
 <body>
@@ -35,19 +37,22 @@
 	<div data-role="page" data-theme="f" id="splashscreen"
 		style="background: url('images/background.jpg') no-repeat">
 		<div data-role="content" style="padding: 40px">
-			<a data-role="button" data-transition="slide" data-theme="d"
-				href="javascript:Service.login('BAABo0L9M21kBAMiccS2vZAWDsXorggEujt6oshQVkwAHZACdvlZAZC0DNc4T6mSbicIjTKyRxua7BhtLRzt4YGkxQGJIXpAOmJYmcoiWYCOg51NZB5ZC5OiZCZCSHqIM4C5a9sKnXVZBNdADMU2eHN253', '5554321');"
-				data-icon="images/icon_invite_friends.png" data-iconpos="right"> Login </a>
+			<div id="button-login" class="button" data-role="button"
+				data-transition="slide" data-theme="d">
+					<a href="javascript:Splashscreen.do_login()">Login</a>
+			</div>
 		</div>
 	</div>
 	<!-- Home -->
 	<div data-role="page" data-theme="f" id="dashboard"
 		style="background: url('images/background.jpg') no-repeat">
+		<div data-role="header">
+			<div class="header-left"> <span id="username">username</span></div>
+			<div class="header-center"></div>
+			<div class="header-right"></div>
+		</div>
 		<div data-role="content" style="padding: 40px">
-			<div style="text-align: center">
-				<img style="width: 40%; height: %" src="images/background.jpg">
-			</div>
-			<ul id="menu_home" data-role="listview" data-divider-theme="b"
+			<ul id="menu_dashboard" data-role="listview" data-divider-theme="b"
 				data-inset="true">
 				<li data-theme="d"><a href="#page4" data-transition="slide">
 						Spogliatoio </a></li>
@@ -67,7 +72,6 @@
 		style="background: url('images/background.jpg') no-repeat">
 		<a data-role="button" data-transition="slide" data-theme="d"
 			href="#page3" data-icon="arrow-r" data-iconpos="right"> Button </a>
-	</div>
 	</div>
 	<!-- Store -->
 	<div data-role="page" data-theme="f" id="page5"

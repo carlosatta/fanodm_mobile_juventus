@@ -1,3 +1,43 @@
-.button{
-	
+#splashscreen .ui-content{
+	padding: 0 40px;
+	text-align: center;
+	margin-top: 47%;
+}
+
+.button .ui-btn-inner{
+	background: url("../images/button_bg.jpg");
+	border: 3px solid white;
+	padding: 0;
+	height: 40px;
+	text-align: center;
+}
+
+.button .ui-btn-inner a{
+	color: white;
+	text-decoration: none;
+	width: 100%;
+	height: 100%;
+	display: block;
+	padding-top: 10px;
+}
+
+.ui-header{
+	padding: 0;
+	background: url("../images/header.png") repeat-x;
+	border: none;
+	margin: 0 20px;
+	height: 40px;
+}
+
+.ui-header .header-left, .ui-header .header-right {
+	width: 42%;
+	height: 100%;
+	float: left;
+}
+
+.ui-header .header-center {
+	width: 16%;
+	height: 100%;
+	float: left;
+	background: url("../images/header_center.png") no-repeat transparent;
 }
