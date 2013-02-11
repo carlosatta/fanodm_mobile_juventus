@@ -13,7 +13,7 @@ var Spogliatoio = {
 
 	load_objects : function(go_on) {
 		if (!go_on || go_on === undefined) {
-			Service.filter_objects(Service.user_profile.id, 'spogliatoio', 'Store.load_objects(true);');
+			Service.filter_objects(Service.user_profile.id, 'spogliatoio', 'Spogliatoio.load_objects(true);');
 		} else {
 			//processa il risultato
 		}
