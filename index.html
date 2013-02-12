@@ -37,7 +37,7 @@
 <body>
 	<!-- Splash -->
 	<div data-role="page" data-theme="f" id="splashscreen"
-		style="background: url('images/background.jpg') no-repeat">
+		style="background: url('images/background.jpg') no-repeat center top">
 		<div data-role="content" style="padding: 40px">
 			<div id="button-login" class="button" data-role="button"
 				data-transition="slide" data-theme="d">
@@ -47,7 +47,7 @@
 	</div>
 	<!-- Home -->
 	<div data-role="page" data-theme="f" id="dashboard"
-		style="background: url('images/background.jpg') no-repeat">
+		style="background: url('images/background.jpg') no-repeat center top">
 		<div data-role="header">
 			<div class="header-left">
 				<span class="username"></span>
@@ -81,7 +81,7 @@
 	</div>
 	<!-- Spogliatoio -->
 	<div data-role="page" data-theme="f" id="spogliatoio"
-		style="background: url('images/background-spogliatoio.jpg') no-repeat">
+		style="background: url('images/background-spogliatoio.jpg') no-repeat center top">
 		<div data-role="header">
 			<div class="header-left">
 				<span class="username"></span>
@@ -98,6 +98,9 @@
 		</div>
 		<div id="objects-menu">
 			<ul>
+				<li id="item-object-occhi" class="objects-menu-item"><a>Occhi</a></li>
+				<li id="item-object-bocca" class="objects-menu-item"><a>Bocca</a></li>
+				<li id="item-object-capelli" class="objects-menu-item"><a>Capelli</a></li>
 				<li id="item-object-maglie" class="objects-menu-item"><a>Maglia</a></li>
 				<li id="item-object-pantaloni" class="objects-menu-item"><a>Pantaloni</a></li>
 				<li id="item-object-accessori" class="objects-menu-item"><a>Accessori</a></li>
@@ -106,54 +109,21 @@
 			</ul>
 		</div>
 		<textarea id="spogliatoio-text"></textarea>
-		<div class="user-avatar">
-			<div class="user-avatar-content">
-				<img class="avatar-body" src="" /> 
-				<img class="avatar-maglia" src="" />
-				<img class="avatar-pantaloni" src="" />
-				<img class="avatar-accessori" src="" /> 
-				<img class="avatar-scarpe" src="" /> 
-				<img class="avatar-sciarpe" src="" />
+		<div class="user-avatar-body">
+			<ul class="user-avatar-list">
+				<li class="avatar-item avatar-body" > </li>
+				<li class="avatar-item avatar-maglia" > </li>
+				<li class="avatar-item avatar-pantaloni" > </li>
+				<li class="avatar-item avatar-accessori" > </li> 
+				<li class="avatar-item avatar-scarpe" > </li> 
+				<li class="avatar-item avatar-sciarpe" > </li>
 			</div>
 		</div>
 	</div>
 	<!-- Store -->
 	<div data-role="page" data-theme="f" id="store"
-		style="background: url('images/background-spogliatoio.jpg') no-repeat">
-		<div data-role="header">
-			<div class="header-left">
-				<span class="username"></span>
-			</div>
-			<div class="header-center">
-				<div class="user-avatar"></div>
-			</div>
-			<div class="header-right">
-				<span class="fantacoins-label">Fantacoins</span> <span
-					class="fantacoins-number"></span> <img class="fantacoins-icon"
-					alt="fantacoins" src="images/fantacoins.png"> <a
-					class="add-fantacoins" href="#"></a>
-			</div>
-		</div>
-		<div id="objects-menu">
-			<ul>
-				<li id="item-object-maglie" class="objects-menu-item"><a>Maglia</a></li>
-				<li id="item-object-pantaloni" class="objects-menu-item"><a>Pantaloni</a></li>
-				<li id="item-object-accessori" class="objects-menu-item"><a>Accessori</a></li>
-				<li id="item-object-scarpe" class="objects-menu-item"><a>Scarpe</a></li>
-				<li id="item-object-sciarpe" class="objects-menu-item"><a>Sciarpe</a></li>
-			</ul>
-		</div>
-		<textarea id="spogliatoio-text"></textarea>
-		<div class="user-avatar">
-			<div class="user-avatar-content">
-				<img class="avatar-body" src="" /> 
-				<img class="avatar-maglia" src="" />
-				<img class="avatar-pantaloni" src="" />
-				<img class="avatar-accessori" src="" /> 
-				<img class="avatar-scarpe" src="" /> 
-				<img class="avatar-sciarpe" src="" />
-			</div>
-		</div>
+		style="background: url('images/background-spogliatoio.jpg') no-repeat center top">
+		
 	</div>
 	<!-- Stadio -->
 	<div data-role="page" data-theme="f" id="page6"

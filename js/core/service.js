@@ -18,8 +18,8 @@ var Service = {
 	user_coins : [],
 	news : [],
 	chat_messages : [],
-	execute_get_objects : false,
-	execute_get_user_items : false,
+	get_objects_has_finished : false,
+	get_user_objects_has_finished : false,
 
 	/* Si occupa di fare tutte le chiamate json */
 	get_json : function(url_suffix, option) {
@@ -90,12 +90,10 @@ var Service = {
 			Service.get_json(url_suffix, {
 				'action' : 'Service.get_objects(\'' + callback + '\', true);'
 			});
-			Service.execute_get_objects = false;
 		} else {
-			Service.all_objects = Json.change_assoc_json(Service.output.value,
-					'_id');
+			Service.all_objects = Json.change_primary_key_json(Service.output.value, '_id');
 			Service.output = false;
-			Service.execute_get_objects = true;
+			Service.get_objects_has_finished = true;
 			if (callback)
 				eval(callback.replace(/"/g, "'"));
 		}
@@ -106,7 +104,7 @@ var Service = {
 			if (!user_id)
 				return false;
 
-			var url_suffix = 'get_user_objects?userid=' + user_id;
+			var url_suffix = 'get_user_items?userid=' + user_id;
 			Service.user_objects = [];
 			Service.output = false;
 			if (callback)
@@ -119,11 +117,10 @@ var Service = {
 					'action' : 'Service.get_user_objects(\'' + user_id
 							+ '\', false, true);'
 				});
-			Service.execute_get_user_items = false;
 		} else {
 			Service.user_objects = Service.output.value;
 			Service.output = false;
-			Service.execute_get_user_items = true;
+			Service.get_user_objects_has_finished = true;
 			if (callback)
 				eval(callback.replace(/"/g, "'"));
 		}
@@ -148,11 +145,11 @@ var Service = {
 		}
 	},
 
-	add_user_item : function(user_id, item_id) {
-		if (!user_id || user_id === undefined || !item_id || item_id === undefined)
+	add_user_object : function(user_id, object_id) {
+		if (!user_id || user_id === undefined || !object_id || object_id === undefined)
 			return false;
 
-		var url_suffix = 'add_user_item?userid=' + user_id + '&item_id=' + item_id
+		var url_suffix = 'add_user_item?userid=' + user_id + '&item_id=' + object_id
 				+ '';
 		Service.output = false;
 		Service.get_json(url_suffix);
@@ -234,31 +231,23 @@ var Service = {
 
 	filter_objects : function(user_id, type, callback, go_on) {
 		Service.output = false;
-		if (!callback || callback === undefined)
-			callback = '';
 		if (!go_on || go_on === undefined) {
-			if (Service.all_objects.length == 0) {
-				Service.get_objects('Service.filter_objects("' + user_id
-						+ '", "' + type + '", "' + callback + '", true);');
-			}
-			if (Service.user_objects.length == 0) {
-				Service.get_user_objects(user_id, 'Service.filter_objects("'
-						+ user_id + '", "' + type + '", "' + callback
-						+ '", true);');
-			}
-			return false;
+			Service.get_objects_has_finished = false;
+			Service.get_user_objects_has_finished = false;
+			Service.get_objects('Service.filter_objects("' + user_id + '", "' + type + '", "' + callback + '", true);');
+			Service.get_user_objects(user_id, 'Service.filter_objects("' + user_id + '", "' + type + '", "' + callback + '", true);');
 		} else {
-			if (!Service.execute_get_objects && !Service.execute_get_user_items)
-				return false;
-
-			var filtered = Json.filter_objects(Service.all_objects, type);
-			var merged = Json.merged_objects(filtered, Service.user_objects);
-			if (type == 'spogliatoio')
-				Service.spogliatoio_objects = merged;
-			else if (type == 'store')
-				Service.store_objects = merged;
-			if (callback)
-				eval(callback);
+			if (Service.get_objects_has_finished && Service.get_user_objects_has_finished){
+				var filtered = Json.filter_objects(Service.all_objects, type);
+				var merged = Json.merge_objects(filtered, Service.user_objects);
+				if (type == 'spogliatoio')
+					Service.spogliatoio_objects = merged;
+				else if (type == 'store')
+					Service.store_objects = merged;
+				
+				if (callback)
+					eval(callback);
+			}
 		}
 	},
 

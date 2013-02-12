@@ -66,5 +66,21 @@
 #objects-menu li{
 	float: left;
 	height: 100%;
-	width: 20%;
+	width: 12.5%;
+}
+
+.user-avatar-body{
+	border: 2px white solid;	
+	background: url("../images/avatar.png") no-repeat transparent;
+}
+
+.user-avatar-body, .user-avatar-list, .avatar-item{
+	width: 175px;
+	height: 350px;
+	padding: 0;
+	margin: 0 auto;
+}
+
+.avatar-item{
+	position: absolute;
 }

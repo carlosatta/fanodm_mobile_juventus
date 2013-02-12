@@ -19,23 +19,22 @@ var Json = {
         return response;
     },
 
-    change_assoc_json : function(objects, new_assoc) {
-        if(!new_assoc)
+    change_primary_key_json : function(objects, prim_key) {
+        if(!prim_key)
             return objects;
         
         var response = {};
         if (utility.isArray(objects) && objects.length > 0) {
             var id = false;
             $.each(objects, function(i, el) {
-                id = el[new_assoc];
+                id = el[prim_key];
                 response[id] = el;
             });
         }
         return response;
     },
-
-    merged_objects : function(objects, user_objects) {
-    	alert('called merged_objects');
+    
+    merge_objects : function(objects, user_objects) {
         if (utility.isArray(objects) || utility.isArray(user_objects)){
             return false;
         }

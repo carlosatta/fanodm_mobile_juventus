@@ -1,10 +1,10 @@
 var Dashboard = {
 
-	display_user_data : function(go_on) {
+	init_dashboard : function(go_on) {
 		if (!go_on || go_on === undefined) {
 			$('.username').text(Service.user_profile.fbname);
 			Service.get_user_coins(Service.user_profile.id,
-					'Dashboard.display_user_data(true);');
+					'Dashboard.init_dashboard(true);');
 		} else {
 			$('.fantacoins-number').text(Service.user_coins);
 		}
@@ -15,7 +15,6 @@ var Dashboard = {
 			transition : "slide",
 			changeHash : false
 		});
-		Spogliatoio.display_user_data();
-		Spogliatoio.load_objects();
+		Spogliatoio.init_spogliatoio();
 	}
 };
