@@ -16,6 +16,11 @@
 	href="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
 <link rel="stylesheet" href="css/app.css" />
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+<script src="js/generic/app.js"></script>
+<link rel="stylesheet" href="css/theme.css" />
+
 <!-- cordova -->
 <script src="phonegap.js"></script>
 <script src="js/core/settings.js"></script>
@@ -25,13 +30,6 @@
 <script src="js/splashscreen.js"></script>
 <script src="js/dashboard.js"></script>
 <script src="js/spogliatoio.js"></script>
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script
-	src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-<script src="js/generic/app.js"></script>
-<link rel="stylesheet" href="css/theme.css" />
 
 </head>
 <body>
@@ -96,29 +94,28 @@
 					class="add-fantacoins" href="#"></a>
 			</div>
 		</div>
-		<div id="objects-menu">
+		<div id="objects-menu objects-menu-spogliatoio">
 			<ul>
-				<li id="item-object-occhi" class="objects-menu-item"><a>Occhi</a></li>
-				<li id="item-object-bocca" class="objects-menu-item"><a>Bocca</a></li>
-				<li id="item-object-capelli" class="objects-menu-item"><a>Capelli</a></li>
-				<li id="item-object-maglie" class="objects-menu-item"><a>Maglia</a></li>
-				<li id="item-object-pantaloni" class="objects-menu-item"><a>Pantaloni</a></li>
-				<li id="item-object-accessori" class="objects-menu-item"><a>Accessori</a></li>
-				<li id="item-object-scarpe" class="objects-menu-item"><a>Scarpe</a></li>
-				<li id="item-object-sciarpe" class="objects-menu-item"><a>Sciarpe</a></li>
+				<li class="objects-menu-item item-object-occhi"><a href="javascript:Spogliatoio.set_type('occhi');">Occhi</a></li>
+				<li class="objects-menu-item item-object-bocca"><a href="javascript:Spogliatoio.set_type('bocca');">Bocca</a></li>
+				<li class="objects-menu-item item-object-capelli"><a href="javascript:Spogliatoio.set_type('capelli');">Capelli</a></li>
+				<li class="objects-menu-item item-object-maglie"><a href="javascript:Spogliatoio.set_type('busto');">Maglia</a></li>
+				<li class="objects-menu-item item-object-pantaloni"><a href="javascript:Spogliatoio.set_type('gambe');">Pantaloni</a></li>
 			</ul>
 		</div>
-		<textarea id="spogliatoio-text"></textarea>
 		<div class="user-avatar-body">
 			<ul class="user-avatar-list">
 				<li class="avatar-item avatar-body" > </li>
-				<li class="avatar-item avatar-maglia" > </li>
-				<li class="avatar-item avatar-pantaloni" > </li>
-				<li class="avatar-item avatar-accessori" > </li> 
-				<li class="avatar-item avatar-scarpe" > </li> 
-				<li class="avatar-item avatar-sciarpe" > </li>
-			</div>
+				<li class="avatar-item avatar-occhi" > </li>
+				<li class="avatar-item avatar-bocca" > </li>
+				<li class="avatar-item avatar-gambe" > </li> 
+				<li class="avatar-item avatar-capelli" > </li> 
+				<li class="avatar-item avatar-busto" > </li>
+			</ul>
+			<div class="prev_object"><a href="javascript:Spogliatoio.prev_object();">Prev</a></div>
+			<div class="next_object"><a href="javascript:Spogliatoio.next_object();">Next</a></div>
 		</div>
+		<div class="save-button"><a href="javascript:Spogliatoio.save_avatar();">Salva</a></div>
 	</div>
 	<!-- Store -->
 	<div data-role="page" data-theme="f" id="store"

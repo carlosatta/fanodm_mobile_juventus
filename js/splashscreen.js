@@ -11,10 +11,6 @@ var Splashscreen = {
 	/*controlla che il login sia andato a buon fine e passa alla dashboard*/	
 	go_to_dashboard: function (){
 		if(Service.user_profile.id){
-			$.mobile.changePage( "#dashboard", {
-		        transition: "slide",
-		        changeHash: false
-		    }); 
 			Dashboard.init_dashboard();
 		}else{
 			alert('C\'è stato un errore durante il login, riprovare.');

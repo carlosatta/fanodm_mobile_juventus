@@ -1,10 +1,10 @@
-#splashscreen .ui-content{
+#splashscreen .ui-content {
 	padding: 0 40px;
 	text-align: center;
 	margin-top: 47%;
 }
 
-.button .ui-btn-inner{
+.button .ui-btn-inner {
 	background: url("../images/button_bg.jpg");
 	border: 3px solid white;
 	padding: 0;
@@ -12,7 +12,7 @@
 	text-align: center;
 }
 
-.button .ui-btn-inner a{
+.button .ui-btn-inner a {
 	color: white;
 	text-decoration: none;
 	width: 100%;
@@ -21,7 +21,7 @@
 	padding-top: 10px;
 }
 
-.ui-header{
+.ui-header {
 	padding: 0;
 	background: url("../images/header.png") repeat-x;
 	border: none;
@@ -29,7 +29,7 @@
 	height: 80px;
 }
 
-.ui-header .header-left, .ui-header .header-right {
+.ui-header .header-left,.ui-header .header-right {
 	width: 42%;
 	height: 100%;
 	float: left;
@@ -41,7 +41,7 @@
 	float: left;
 }
 
-.ui-header .header-center .user-avatar{
+.ui-header .header-center .user-avatar {
 	margin: 0 auto;
 	height: 100%;
 	width: 67px;
@@ -54,7 +54,7 @@
 	padding: 0 10%;
 }
 
-#objects-menu ul{
+#objects-menu ul {
 	height: 100px;
 	width: 80%;
 	background-color: #ffde00;
@@ -63,24 +63,57 @@
 	border-radius: 10px;
 }
 
-#objects-menu li{
+#objects-menu li {
 	float: left;
 	height: 100%;
 	width: 12.5%;
 }
 
-.user-avatar-body{
-	border: 2px white solid;	
+.user-avatar-body {
+	border: 2px white solid;
+	position: relative;
 	background: url("../images/avatar.png") no-repeat transparent;
 }
 
-.user-avatar-body, .user-avatar-list, .avatar-item{
+.user-avatar-body,.user-avatar-list,.avatar-item {
 	width: 175px;
 	height: 350px;
 	padding: 0;
 	margin: 0 auto;
 }
 
-.avatar-item{
+.avatar-item {
 	position: absolute;
+}
+
+.user-avatar-body .prev_object,.user-avatar-body .next_object {
+	position: absolute;
+	top: 50%;
+	width: 20px;
+	height: 20px;
+	display: block;
+	border: 2px solid white;
+}
+
+.user-avatar-body .prev_object {
+	left: -40px;
+}
+
+.user-avatar-body .next_object {
+	right: -40px;
+}
+
+.user-avatar-body .prev_object a,.user-avatar-body .next_object a {
+	width: 20px;
+	height: 20px;
+	display: block;
+}
+
+.save-button,.save-button a {
+	width: 70px;
+	height: 40px;
+	display: block;
+	background-color: white;
+	text-align: center;
+	margin: 0 auto;
 }
