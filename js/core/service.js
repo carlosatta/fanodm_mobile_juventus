@@ -185,11 +185,6 @@ var Service = {
         else
             return false;
 
-        var get_coins = Service.get_user_coins(user_id);
-        var balance = get_coins['value']['virtual_coins'];
-        if (balance < coins)
-            return false;
-
         var url_suffix = 'set_coins?userid=' + user_id + '&coins=' + coins
         + '&add=true';
         var response = Service.get_json(url_suffix);
@@ -248,7 +243,7 @@ var Service = {
                 }
                 else if (type == 'store') {
                     var cleaned = Json.clean_objects(filtered, Service.user_objects);
-                    Service.store_objects = Service.group_objects(Json.change_primary_key_json(cleaned, 'counter'), 'spogliatoio');
+                    Service.store_objects = Service.group_objects(Json.change_primary_key_json(cleaned, 'counter'), 'store');
                 }
                 
                 Service.get_objects_has_finished = Service.get_user_objects_has_finished = false;		
@@ -261,21 +256,41 @@ var Service = {
     group_objects : function(objects, type) {
         var response = objects;
         var data = new Array();
-        $.each(response, function(i, el) {
-            // Se ha già come chiave la position che sto ciclando aggiungo semplicemente l'oggetto all'array
-            if(data.hasOwnProperty(el.information[0].position)) {
-                data[el.information[0].position].push({
-                    '_id' : el['_id'],
-                    'image' : el['resource']
-                });
-            } else {
-                // Altrimenti la chiave viene creata e poi ci aggiungo l'oggetto
-                data[el.information[0].position] = [{
-                    '_id' : el['_id'], 
-                    'image' : el['resource']
-                }];
-            }
-        });
+        if(type == 'spogliatoio'){
+	        $.each(response, function(i, el) {
+	            // Se ha già come chiave la position che sto ciclando aggiungo semplicemente l'oggetto all'array
+	            if(data.hasOwnProperty(el.information[0].position)) {
+	                data[el.information[0].position].push({
+	                    '_id' : el['_id'],
+	                    'image' : el['resource']
+	                });
+	            } else {
+	                // Altrimenti la chiave viene creata e poi ci aggiungo l'oggetto
+	                data[el.information[0].position] = [{
+	                    '_id' : el['_id'], 
+	                    'image' : el['resource']
+	                }];
+	            }
+	        });
+        }else if(type == 'store'){
+        	$.each(response, function(i, el) {
+	            // Se ha già come chiave la position che sto ciclando aggiungo semplicemente l'oggetto all'array
+	            if(data.hasOwnProperty(el.information[0].position)) {
+	                data[el.information[0].position].push({
+	                    '_id' : el['_id'],
+	                    'image' : el['resource'], 
+	                    'cost' : el['cost']
+	                });
+	            } else {
+	                // Altrimenti la chiave viene creata e poi ci aggiungo l'oggetto
+	                data[el.information[0].position] = [{
+	                    '_id' : el['_id'], 
+	                    'image' : el['resource'], 
+	                    'cost' : el['cost']
+	                }];
+	            }
+	        });
+        }
         return data;
     }
 };

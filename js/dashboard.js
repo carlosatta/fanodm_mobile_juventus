@@ -16,5 +16,9 @@ var Dashboard = {
 
 	go_to_spogliatoio : function() {
 		Spogliatoio.init_spogliatoio();
+	},
+
+	go_to_store : function() {
+		Store.init_store();
 	}
 };

@@ -30,6 +30,7 @@
 <script src="js/splashscreen.js"></script>
 <script src="js/dashboard.js"></script>
 <script src="js/spogliatoio.js"></script>
+<script src="js/store.js"></script>
 
 </head>
 <body>
@@ -64,9 +65,9 @@
 			<ul id="menu_dashboard" data-role="listview" data-divider-theme="b"
 				data-inset="true">
 				<li data-theme="d"><a
-					href="javascript:Dashboard.go_to_spogliatoio()"
+					href="javascript:Dashboard.go_to_spogliatoio();"
 					data-transition="slide"> Spogliatoio </a></li>
-				<li data-theme="d"><a href="#page5" data-transition="slide">
+				<li data-theme="d"><a href="javascript:Dashboard.go_to_store();" data-transition="slide">
 						Store </a></li>
 				<li data-theme="d"><a href="#page6" data-transition="slide">
 						Stadio </a></li>
@@ -103,7 +104,7 @@
 				<li class="objects-menu-item item-object-pantaloni"><a href="javascript:Spogliatoio.set_type('gambe');">Pantaloni</a></li>
 			</ul>
 		</div>
-		<div class="user-avatar-body">
+		<div class="user-avatar-body user-avatar-body-spogliatoio">
 			<ul class="user-avatar-list">
 				<li class="avatar-item avatar-body" > </li>
 				<li class="avatar-item avatar-occhi" > </li>
@@ -120,7 +121,55 @@
 	<!-- Store -->
 	<div data-role="page" data-theme="f" id="store"
 		style="background: url('images/background-spogliatoio.jpg') no-repeat center top">
-		
+		<div data-role="header">
+			<div class="header-left">
+				<span class="username"></span>
+			</div>
+			<div class="header-center">
+				<div class="user-avatar"></div>
+			</div>
+			<div class="header-right">
+				<span class="fantacoins-label">Fantacoins</span> <span
+					class="fantacoins-number"></span> <img class="fantacoins-icon"
+					alt="fantacoins" src="images/fantacoins.png"> <a
+					class="add-fantacoins" href="#"></a>
+			</div>
+		</div>
+		<div id="objects-menu objects-menu-store">
+			<ul>
+				<li class="objects-menu-item item-object-occhi"><a
+					href="javascript:Store.set_type('occhi');">Occhi</a></li>
+				<li class="objects-menu-item item-object-bocca"><a
+					href="javascript:Store.set_type('bocca');">Bocca</a></li>
+				<li class="objects-menu-item item-object-capelli"><a
+					href="javascript:Store.set_type('capelli');">Capelli</a></li>
+				<li class="objects-menu-item item-object-maglie"><a
+					href="javascript:Store.set_type('busto');">Maglia</a></li>
+				<li class="objects-menu-item item-object-pantaloni"><a
+					href="javascript:Store.set_type('gambe');">Pantaloni</a></li>
+			</ul>
+		</div>
+		<div class="user-avatar-body user-avatar-body-store">
+			<ul class="user-avatar-list">
+				<li class="avatar-item avatar-body"></li>
+				<li class="avatar-item avatar-occhi"></li>
+				<li class="avatar-item avatar-bocca"></li>
+				<li class="avatar-item avatar-gambe"></li>
+				<li class="avatar-item avatar-capelli"></li>
+				<li class="avatar-item avatar-busto"></li>
+			</ul>
+			<div class="prev_object">
+				<a href="javascript:Store.prev_object();">Prev</a>
+			</div>
+			<div class="next_object">
+				<a href="javascript:Store.next_object();">Next</a>
+			</div>
+		</div>
+		<div class="object-cost">
+		</div>
+		<div class="buy-button">
+			<a href="javascript:Store.buy_objects();">Compra</a>
+		</div>
 	</div>
 	<!-- Stadio -->
 	<div data-role="page" data-theme="f" id="page6"

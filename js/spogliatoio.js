@@ -25,9 +25,7 @@ var Spogliatoio = {
 			Service.get_user_coins(Service.user_profile.id,
 					'Spogliatoio.init_spogliatoio(true);');
 			Spogliatoio.load_objects();
-
 			Spogliatoio.set_type('occhi');
-			Spogliatoio.load_avatar();
 		} else {
 			$('.fantacoins-number').text(Service.user_coins);
 		}
@@ -38,6 +36,7 @@ var Spogliatoio = {
 			Service.filter_objects(Service.user_profile.id, 'spogliatoio',
 					'Spogliatoio.load_objects(true);');
 		} else {
+			Spogliatoio.load_avatar();
 		}
 	},
 
@@ -49,18 +48,18 @@ var Spogliatoio = {
 	prev_object : function() {
 		if (Spogliatoio.current_objects_positions[Spogliatoio.current_type] >= 0) {
 			Spogliatoio.current_objects_positions[Spogliatoio.current_type]--;
-			$('.user-avatar-body .avatar-' + Spogliatoio.current_type)
-					.css(
-							'background-image',
-							'url("'
-									+ Service.spogliatoio_objects[Spogliatoio.current_type][Spogliatoio.current_objects_positions[Spogliatoio.current_type]].image
-									+ '")');
 		}
 		if (Spogliatoio.current_objects_positions[Spogliatoio.current_type] == -1) {
-			$('.user-avatar-body .avatar-' + Spogliatoio.current_type).css(
+			$('.user-avatar-body-spogliatoio .avatar-' + Spogliatoio.current_type).css(
 					'background-image', 'none');
 			Spogliatoio.current_objects[Spogliatoio.current_type] = '';
 		} else {
+			$('.user-avatar-body-spogliatoio .avatar-' + Spogliatoio.current_type)
+			.css(
+					'background-image',
+					'url("'
+							+ Service.spogliatoio_objects[Spogliatoio.current_type][Spogliatoio.current_objects_positions[Spogliatoio.current_type]].image
+							+ '")');
 			Spogliatoio.current_objects[Spogliatoio.current_type] = Spogliatoio.current_type
 					+ '/'
 					+ Service.spogliatoio_objects[Spogliatoio.current_type][Spogliatoio.current_objects_positions[Spogliatoio.current_type]]._id;
@@ -73,7 +72,7 @@ var Spogliatoio = {
 			Spogliatoio.current_objects[Spogliatoio.current_type] = Spogliatoio.current_type
 					+ '/'
 					+ Service.spogliatoio_objects[Spogliatoio.current_type][Spogliatoio.current_objects_positions[Spogliatoio.current_type]]._id;
-			$('.user-avatar-body .avatar-' + Spogliatoio.current_type)
+			$('.user-avatar-body-spogliatoio .avatar-' + Spogliatoio.current_type)
 					.css(
 							'background-image',
 							'url("'
@@ -86,7 +85,7 @@ var Spogliatoio = {
 		if (!go_on || go_on === undefined) {
 			var avatar_json = [];
 			$.each(Spogliatoio.current_objects, function(i, el) {
-				if(el.length > 0)
+				if (el.length > 0)
 					avatar_json.push(el);
 			});
 			console.log(JSON.stringify(avatar_json));
@@ -99,17 +98,17 @@ var Spogliatoio = {
 
 	load_avatar : function() {
 		$.each(Service.user_profile.avatar, function(i, el) {
-			splitted_object = el.split('/');
-			var type = splitted_object[0];
-			var id = splitted_object[1];
-			Spogliatoio.current_objects[type] = id;
-			$('.user-avatar-body .avatar-' + type)
-			.css(
-					'background-image',
-					'url("'
-							+ Service.spogliatoio_objects[type][Spogliatoio.current_objects_positions[type]].image
-							+ '")');
+					splitted_object = el.split('/');
+					var type = splitted_object[0];
+					var id = splitted_object[1];
+					Spogliatoio.current_objects[type] = type + '/' + id;
+					$.each(Service.spogliatoio_objects[type], function(i, el) {
+						if(el._id == id){
+							Spogliatoio.current_objects_positions[type] = i;
+							$('.user-avatar-body-spogliatoio .avatar-' + type).css('background-image',
+									'url("'+ el.image+ '")');	
+						}
+					});		
 		});
-		//DEVO FINIRE IL CARICAMENTO DEGLI OGGETTI DELL'AVATAR ALL'APERTURA DELL'APP;
 	}
 };

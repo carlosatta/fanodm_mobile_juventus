@@ -109,7 +109,10 @@
 	display: block;
 }
 
-.save-button,.save-button a {
+.save-button,
+.save-button a,
+.buy-button,
+.buy-button a {
 	width: 70px;
 	height: 40px;
 	display: block;
