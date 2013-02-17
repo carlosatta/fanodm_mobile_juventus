@@ -27,6 +27,6 @@
 	<preference name="target-device" value="handset" />
 	
 	<gap:plugin name="FacebookConnect">
-		<param name="APP_ID" value="115245771971417" />
-	</gap:plugin>
+   <param name="APP_ID" value="114099065435915" />
+ </gap:plugin>
 </widget>

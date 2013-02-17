@@ -16,8 +16,10 @@
 	href="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
 <link rel="stylesheet" href="css/app.css" />
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script
+	src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 <script src="js/generic/app.js"></script>
 <link rel="stylesheet" href="css/theme.css" />
 
@@ -36,7 +38,7 @@
 <body>
 	<!-- Splash -->
 	<div data-role="page" data-theme="f" id="splashscreen"
-		style="background: url('images/background.jpg') no-repeat center top">
+		style="background: url('images/background.jpg') no-repeat center top; background-size: cover;">
 		<div data-role="content" style="padding: 40px">
 			<div id="button-login" class="button" data-role="button"
 				data-transition="slide" data-theme="d">
@@ -67,7 +69,8 @@
 				<li data-theme="d"><a
 					href="javascript:Dashboard.go_to_spogliatoio();"
 					data-transition="slide"> Spogliatoio </a></li>
-				<li data-theme="d"><a href="javascript:Dashboard.go_to_store();" data-transition="slide">
+				<li data-theme="d"><a
+					href="javascript:Dashboard.go_to_store();" data-transition="slide">
 						Store </a></li>
 				<li data-theme="d"><a href="#page6" data-transition="slide">
 						Stadio </a></li>
@@ -97,26 +100,37 @@
 		</div>
 		<div id="objects-menu objects-menu-spogliatoio">
 			<ul>
-				<li class="objects-menu-item item-object-occhi"><a href="javascript:Spogliatoio.set_type('occhi');">Occhi</a></li>
-				<li class="objects-menu-item item-object-bocca"><a href="javascript:Spogliatoio.set_type('bocca');">Bocca</a></li>
-				<li class="objects-menu-item item-object-capelli"><a href="javascript:Spogliatoio.set_type('capelli');">Capelli</a></li>
-				<li class="objects-menu-item item-object-maglie"><a href="javascript:Spogliatoio.set_type('busto');">Maglia</a></li>
-				<li class="objects-menu-item item-object-pantaloni"><a href="javascript:Spogliatoio.set_type('gambe');">Pantaloni</a></li>
+				<li class="objects-menu-item item-object-occhi"><a
+					href="javascript:Spogliatoio.set_type('occhi');">Occhi</a></li>
+				<li class="objects-menu-item item-object-bocca"><a
+					href="javascript:Spogliatoio.set_type('bocca');">Bocca</a></li>
+				<li class="objects-menu-item item-object-capelli"><a
+					href="javascript:Spogliatoio.set_type('capelli');">Capelli</a></li>
+				<li class="objects-menu-item item-object-maglie"><a
+					href="javascript:Spogliatoio.set_type('busto');">Maglia</a></li>
+				<li class="objects-menu-item item-object-pantaloni"><a
+					href="javascript:Spogliatoio.set_type('gambe');">Pantaloni</a></li>
 			</ul>
 		</div>
 		<div class="user-avatar-body user-avatar-body-spogliatoio">
 			<ul class="user-avatar-list">
-				<li class="avatar-item avatar-body" > </li>
-				<li class="avatar-item avatar-occhi" > </li>
-				<li class="avatar-item avatar-bocca" > </li>
-				<li class="avatar-item avatar-gambe" > </li> 
-				<li class="avatar-item avatar-capelli" > </li> 
-				<li class="avatar-item avatar-busto" > </li>
+				<li class="avatar-item avatar-body"></li>
+				<li class="avatar-item avatar-occhi"></li>
+				<li class="avatar-item avatar-bocca"></li>
+				<li class="avatar-item avatar-gambe"></li>
+				<li class="avatar-item avatar-capelli"></li>
+				<li class="avatar-item avatar-busto"></li>
 			</ul>
-			<div class="prev_object"><a href="javascript:Spogliatoio.prev_object();">Prev</a></div>
-			<div class="next_object"><a href="javascript:Spogliatoio.next_object();">Next</a></div>
+			<div class="prev_object">
+				<a href="javascript:Spogliatoio.prev_object();">Prev</a>
+			</div>
+			<div class="next_object">
+				<a href="javascript:Spogliatoio.next_object();">Next</a>
+			</div>
 		</div>
-		<div class="save-button"><a href="javascript:Spogliatoio.save_avatar();">Salva</a></div>
+		<div class="save-button">
+			<a href="javascript:Spogliatoio.save_avatar();">Salva</a>
+		</div>
 	</div>
 	<!-- Store -->
 	<div data-role="page" data-theme="f" id="store"
@@ -165,8 +179,7 @@
 				<a href="javascript:Store.next_object();">Next</a>
 			</div>
 		</div>
-		<div class="object-cost">
-		</div>
+		<div class="object-cost"></div>
 		<div class="buy-button">
 			<a href="javascript:Store.buy_objects();">Compra</a>
 		</div>
